@@ -12,7 +12,7 @@ import useStyles from "./styles";
 import rutuni from "../../../img/rutini.jpg";
 import santelmo from "../../../img/santelmo.jpg";
 
-function Product({ product }) {
+function Product({ product, onAddToCart }) {
   const images = [rutuni, santelmo];
   const classes = useStyles();
   return (
@@ -26,14 +26,14 @@ function Product({ product }) {
             {product.name}
           </Typography>
           <Typography variant="h5" gutterBottom>
-            {product.formatted_width_symbol}
+            {product.price.formatted_with_code}
           </Typography>
         </div>
         <Typography dangerouslySetInnerHTML= {{ __html: product.description}} variant="body2" color="textSecondary"/>
          
       </CardContent>
       <CardActions disableSpacing className={classes.cardActions}>
-        <IconButton arial-label="Add to cart">
+        <IconButton arial-label="Add to cart" onClick={()=> onAddToCart(product.id,1)}>
           <AddShoppingCart />
         </IconButton>
       </CardActions>
