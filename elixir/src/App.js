@@ -4,6 +4,8 @@ import Products from "./components/products/Products";
 import Navbar from "./components/navbar/Navbar";
 import Cart from "./components/cart/Cart";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import Checkout from "./components/checkoutForm/checkout/Checkout";
+import FooterElixir from "./components/footer/FooterElixir";
 
 const App = () => {
   const [products, setProducts] = useState([]);
@@ -25,25 +27,23 @@ const App = () => {
   };
 
   const handleUpdateCartCant = async (productId, quantity) => {
-      const response = await commerce.cart.update(productId, {quantity});
-      setCart(response.cart)
-  }
+    const response = await commerce.cart.update(productId, { quantity });
+    setCart(response.cart);
+  };
 
   const handleRemoveFromCart = async (productId) => {
-      const {cart} = await commerce.cart.remove(productId);
-      setCart(cart);
-  }
+    const { cart } = await commerce.cart.remove(productId);
+    setCart(cart);
+  };
 
   const handleEmptyCart = async () => {
     const { cart } = await commerce.cart.empty();
     setCart(cart);
-  }
+  };
   useEffect(() => {
     fetchProducts();
     fetchCart();
   }, []);
-
-  console.log(cart);
 
   return (
     <Router>
@@ -55,21 +55,24 @@ const App = () => {
             <Products products={products} onAddToCart={handleAddToCart} />
           </Route>
           <Route exact path="/cart">
-            <Cart cart={cart} 
-            handleUpdateCartCant={handleUpdateCartCant}
-            handleRemoveFromCart={handleRemoveFromCart}
-            handleEmptyCart={handleEmptyCart}
-            
-            
+            <Cart
+              cart={cart}
+              handleUpdateCartCant={handleUpdateCartCant}
+              handleRemoveFromCart={handleRemoveFromCart}
+              handleEmptyCart={handleEmptyCart}
             />
           </Route>
           <Route exact path="/checkout">
-              
+            <Checkout cart={cart} />
           </Route>
         </Switch>
+        <FooterElixir />
       </div>
     </Router>
   );
 };
 
 export default App;
+
+
+
