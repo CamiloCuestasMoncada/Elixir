@@ -27,11 +27,11 @@ function FooterElixir() {
     },
 
     footer: {
-      padding: theme.spacing(3, 2),
+      padding: theme.spacing(2, 1),
       marginTop: "auto",
       backgroundColor: "#a20220",
       bottom: "0",
-
+      position: 'fixed',
       width: "100%",
     },
   }));
