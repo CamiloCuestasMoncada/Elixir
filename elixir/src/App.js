@@ -5,6 +5,7 @@ import Navbar from "./components/navbar/Navbar";
 import Cart from "./components/cart/Cart";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import Checkout from "./components/checkoutForm/checkout/Checkout";
+
 import FooterElixir from "./components/footer/FooterElixir";
 
 const App = () => {
@@ -13,7 +14,7 @@ const App = () => {
 
   const fetchProducts = async () => {
     const { data } = await commerce.products.list();
-
+    setIsLoading(false);
     setProducts(data);
   };
 
@@ -25,6 +26,8 @@ const App = () => {
     const response = await commerce.cart.add(productId, quantity);
     setCart(response.cart);
   };
+
+  const [isLoading, setIsLoading] = useState(true);
 
   const handleUpdateCartCant = async (productId, quantity) => {
     const response = await commerce.cart.update(productId, { quantity });
@@ -52,7 +55,9 @@ const App = () => {
         <Navbar totalItems={cart.total_items} />
         <Switch>
           <Route exact path="/">
-            <Products products={products} onAddToCart={handleAddToCart} />
+            
+              <Products products={products} onAddToCart={handleAddToCart} isLoading={isLoading} />
+            
           </Route>
           <Route exact path="/cart">
             <Cart
@@ -66,6 +71,7 @@ const App = () => {
             <Checkout cart={cart} />
           </Route>
         </Switch>
+        
         <FooterElixir />
       </div>
     </Router>
@@ -73,6 +79,5 @@ const App = () => {
 };
 
 export default App;
-
 
 
