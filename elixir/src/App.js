@@ -4,6 +4,7 @@ import Products from "./components/products/Products";
 import Navbar from "./components/navbar/Navbar";
 import Cart from "./components/cart/Cart";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import Checkout from './components/checkoutForm/checkout/Checkout';
 
 const App = () => {
   const [products, setProducts] = useState([]);
@@ -64,7 +65,7 @@ const App = () => {
             />
           </Route>
           <Route exact path="/checkout">
-              
+              <Checkout cart={cart}/>
           </Route>
         </Switch>
       </div>
